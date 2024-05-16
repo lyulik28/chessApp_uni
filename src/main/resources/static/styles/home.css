@@ -1,0 +1,212 @@
+html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+}
+body{
+    background-color: #000;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    display: block;
+}
+*:not(button){
+    font-family: "Kanit", sans-serif;
+    box-sizing: inherit;
+    font-style: normal;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 20% 79%;
+    grid-gap: 10px;
+}
+
+h2{
+    margin-bottom: 10px;
+    margin-top: 0;
+    font-size: 2rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+button{
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: 400;
+    text-align: center;
+    transition: all .15s ease-in-out;
+}
+button:active {
+    box-shadow: 0 0 2px 3px #65a0df;
+}
+
+button:hover {
+    background-color: #0069D9;
+}
+
+#create_game, #enter_game {
+    display: none;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main_black, .main_white {
+    flex: 1;
+}
+
+.main_black {
+    background-color: #000;
+}
+
+.main_white {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(180deg, #fff 90%, #0b0a0b);
+}
+
+.main_img{
+    width: 50%;
+}
+
+.main_black{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2px;
+    height: 100vh;
+}
+
+.main_black > div{
+    background: linear-gradient(130deg, #000 40%, #2c2729);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+
+.main_black h2, .main_black h4{
+    color: #fff;
+    font-weight: 300;
+}
+
+.enter{
+    margin-top: 30px;
+}
+
+#profile{
+    background-color: #000;
+}
+
+#profile input{
+    background: #000;
+    border-color: #000;
+}
+
+#profile h3, #profile label, #profile li, #profile h1{
+    color: #fff;
+}
+
+.welcome{
+    font-size: 3rem;
+    letter-spacing: 12px;
+}
+
+.sign_out, .refuse, .close{
+    background-color: #B10031;
+    border-color: #B10031;
+}
+
+.sign_out:hover, .refuse:hover, .close:hover{
+    background-color: #c40338;
+}
+
+.find, .add{
+    padding: 0.3rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1;
+    background-color: #444655;
+    border-color: #444655;
+}
+
+.confirm, .refuse{
+    padding: 0.3rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.played, .victories{
+    display: flex;
+    gap: 10px;
+}
+
+.form-control{
+    color: #fff;
+}
+
+.answer_to_friend_request{
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.enter_game{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+a{
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-size: 23px;
+    color: #fff;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+#notification{
+    margin: 5px 15px;
+    border-radius: 10px;
+    gap: 7px;
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #444655;
+    padding: 30px 50px;
+    border: 3px solid #444655;
+}
+
+#notification > div{
+    color: #fff;
+    font-size: larger;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+#notification button{
+    padding: 0.3rem 1rem;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link th:href="@{/styles/setting.css}" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<div class="back">
+    <img src="/assets/arrow_icon.svg">
+    <a href="home">Back Home</a>
+</div>
+<h2 class="title">Edit</h2>
+<form action="#" th:action="@{/editUsername}" method="post">
+    <div>
+        <h2>Username must consist only of Latin letters, numbers and an underscore</h2>
+        <h3 th:text="${username}"></h3>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"/>
+    </div>
+    <div>
+        <button type="submit">Save Username</button>
+    </div>
+</form>
+
+<form action="#" th:action="@{/editEmail}" method="post">
+    <div>
+        <h3 th:text="${email}"></h3>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"/>
+    </div>
+    <div>
+        <button type="submit">Save Email</button>
+    </div>
+</form>
+
+<form action="#" th:action="@{/editPassword}" method="post">
+    <div>
+        <h2>Password must contain at least one uppercase Latin letter,
+            more than one lowercase Latin letter, at least one number and at least one special character</h2>
+        <h3 th:text="${password}"></h3>
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password"/>
+    </div>
+    <div>
+        <button type="submit">Save Password</button>
+    </div>
+</form>
+</body>
+</html>

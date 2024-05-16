@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+    <link th:href="@{/styles/home.css}" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+    <script src="/js/pushNotifications.js"></script>
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div class="container">
+    <div id="profile">
+        <h1 th:text="${userName}" id="userName"></h1>
+        <div class="played">
+            <h3>Played</h3>
+            <h3 th:text="${played}"></h3>
+        </div>
+        <div class="victories">
+            <h3>Victories</h3>
+            <h3 th:text="${victories}"></h3>
+        </div>
+        <h3>Friends</h3>
+
+        <form action="#" th:action="@{/home}" method="post">
+            <div class="form-group">
+                <label for="friendName">Find user</label>
+                <input type="text" id="friendName" name="friendName" class="form-control" placeholder="Username">
+                <br>
+                <button id="sendFriendName" class="btn btn-default find" type="submit">Find</button>
+            </div>
+        </form>
+
+
+        <h3 th:if="${friendName != null}" th:text="${friendName}"></h3>
+        <form action="#" th:action="@{/addFriend}" th:if="${friendName != null and !friendName.equals('Not found')
+        and !requestsList.contains(friendName) and !friendsList.contains(friendName) and !sentRequests.contains(friendName)}"
+              method="post">
+            <input type="hidden" th:name="friendName" th:value="${friendName}"/>
+            <button type="submit" class="add">Add</button>
+        </form>
+
+        <div th:each="requestedUserName : ${requestsList}">
+            <div class="answer_to_friend_request">
+                <h3 th:text="${requestedUserName}"></h3>
+                <form action="#" th:action="@{/confirmFriend}" method="post">
+                    <input type="hidden" th:name="requestedUserName" th:value="${requestedUserName}"/>
+                    <button type="submit" class="confirm">Confirm</button>
+                </form>
+                <form action="#" th:action="@{/refuseFriend}" method="post">
+                    <input type="hidden" th:name="requestedUserName" th:value="${requestedUserName}"/>
+                    <button type="submit" class="refuse">Refuse</button>
+                </form>
+            </div>
+
+        </div>
+        <ul>
+            <li th:each="friendName : ${friendsList}" th:text="${friendName}"></li>
+        </ul>
+        <br>
+        <a href="settings">Settings</a>
+        <br>
+        <br>
+        <br>
+        <form action="#" th:action="@{/logout}" method="post">
+            <button type="submit" class="sign_out">Sign Out</button>
+        </form>
+    </div>
+
+    <div class="main">
+        <div class="main_white">
+            <h2 class="welcome">WELCOME</h2>
+            <br>
+            <button onclick="showCreateGame()">Create game</button>
+            <div id="create_game">
+                <br>
+                <div>
+                    <form action="#" th:action="@{/createGame}" method="post">
+                        <label for="recipientName">Select a friend:</label>
+                        <div th:each="friend : ${friendsList}">
+                            <input type="radio" th:id="${'friend_' + friend}" id="recipientName" th:name="recipientName"
+                                   th:value="${friend}"/>
+                            <label th:for="${'friend_' + friend}" th:text="${friend}"></label>
+                            <br/>
+                        </div>
+                        <br>
+                        <label for="color">Select your color:</label>
+                        <select id="color" name="color">
+                            <option th:value="white">White</option>
+                            <option th:value="black">Black</option>
+                            <option th:value="random">Random</option>
+                        </select>
+                        <br>
+                        <button id="sendRecipientName" class="btn btn-default" type="submit">Create and Send</button>
+                    </form>
+                </div>
+                <br>
+                <button onclick="hideCreateGame()" class="close">Close</button>
+            </div>
+
+            <h1 th:text="${incorrectLink}"></h1>
+            <button type="submit" onclick="showEnterGame()" class="enter">Enter game</button>
+            <div id="enter_game">
+                <br>
+                <div>
+                    <form action="#" th:action="@{/enterGame}" method="post" class="enter_game">
+                        <label for="sentGameCode">Game code:</label>
+                        <input type="text" id="sentGameCode" name="gameCode"/>
+                        <button id="sendGameCode" class="btn btn-default" type="submit">Join</button>
+                    </form>
+                </div>
+                <br>
+                <button onclick="hideEnterGame()" class="close">Close</button>
+            </div>
+
+            <img src="/assets/chess.png" class="main_img">
+
+        </div>
+
+        <div class="main_black">
+            <div class="king">
+                <h2>KING</h2>
+                <img src="/assets/figures/WHITE/KING.svg">
+                <h4>The king can move one square in any direction: vertically, horizontally, or diagonally.</h4>
+            </div>
+            <div class="queen">
+                <h2>QUEEN</h2>
+                <img src="/assets/figures/WHITE/QUEEN.svg">
+                <h4>The queen can move like a rook and a bishop,
+                    meaning horizontally, vertically, or diagonally for any number of unoccupied squares.</h4>
+            </div>
+            <div class="pawn">
+                <h2>PAWN</h2>
+                <img src="/assets/figures/WHITE/PAWN.svg">
+                <h4>A pawn can move forward one square, but on its first move, it may move forward two squares.
+                    It can attack an enemy piece diagonally forward-left or forward-right.</h4>
+            </div>
+
+            <div class="bishop">
+                <h2>BISHOP</h2>
+                <img src="/assets/figures/WHITE/BISHOP.svg">
+                <h4>A bishop moves along the diagonal for any number of unoccupied squares.</h4>
+            </div>
+            <div class="rook">
+                <h2>ROOK</h2>
+                <img src="/assets/figures/WHITE/ROOK.svg">
+                <h4>A rook can move along the horizontal or vertical axis for any number of unoccupied squares.</h4>
+            </div>
+            <div class="knight">
+                <h2>KNIGHT</h2>
+                <img src="/assets/figures/WHITE/KNIGHT.svg">
+                <h4> The knight moves in an "L" shape - two squares horizontally or vertically,
+                    and then one square perpendicular to that movement. It can jump over other pieces.</h4>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="notification">
+        <form id="enterForm" action="#" th:action="@{/enterGame}" method="post">
+            <input type="hidden" id="gameCode" name="gameCode"/>
+            <button id="joinGame" class="btn btn-default" type="submit">Join</button>
+        </form>
+
+    </div>
+</div>
+<script>
+    function showCreateGame() {
+        var createGameDiv = document.getElementById("create_game");
+        createGameDiv.style.display = "block";
+    }
+
+    function hideCreateGame() {
+        var createGameDiv = document.getElementById("create_game");
+        createGameDiv.style.display = "none";
+    }
+
+    function showEnterGame() {
+        var enterGameDiv = document.getElementById("enter_game");
+        enterGameDiv.style.display = "block";
+    }
+
+    function hideEnterGame() {
+        var enterGameDiv = document.getElementById("enter_game");
+        enterGameDiv.style.display = "none";
+    }
+</script>
+</body>
+</html>

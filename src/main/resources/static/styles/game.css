@@ -1,0 +1,181 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.chess_board{
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    border: 3vw solid transparent;
+    border-image: url(https://tinostone.com/wp-content/uploads/2016/09/Marquina-closeup.jpg) 80 stretch;
+    max-width: 480px;
+    max-height: 480px;
+    width: 100vw;
+    height: 100vw;
+    box-shadow: 0 10px 10px -5px rgba(0,0,0,.75);
+    font-size: 0;
+    background-image: url(https://storage.googleapis.com/pod_public/1300/128275.jpg);
+}
+
+.chess_board > div > div{
+    width: 12.5%;
+    height: 100%;
+}
+
+.chess_board > div{
+    width: 100%;
+    height: 12.5%;
+    display: flex;
+    flex-direction: row;
+}
+
+.chess_board[color="BLACK"],
+.chess_board[color="BLACK"] > div > div > img {
+    transform: rotate(180deg);
+}
+.chess_board > div > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chess_board > div:nth-child(2n) > div:nth-child(2n-1), .chess_board > div:nth-child(2n-1) > div:nth-child(2n){
+    background-color: rgb(4 4 4 / 63%);
+}
+
+.container{
+    width: 96%;
+    height: 90vh;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    grid-gap: 10px;
+}
+
+*:not(button){
+    font-family: "Kanit", sans-serif;
+    box-sizing: inherit;
+    font-style: normal;
+}
+
+h1{
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.chat{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    height: 95vh;
+}
+
+.table{
+    border: 5px solid #F2ECFF;
+    border-radius: 10px;
+    padding: 5px;
+    width: 100%;
+    height: 50%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: end;
+    align-items: flex-start;
+}
+
+.col-md-6{
+    margin: 5px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+button{
+    display: block;
+    padding: 0.3rem 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1;
+    border-radius: 0.3rem;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: 400;
+    text-align: center;
+    transition: all .15s ease-in-out;
+}
+button:active {
+    box-shadow: 0 0 2px 3px #65a0df;
+}
+
+button:hover {
+    background-color: #0069D9;
+}
+
+label{
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+input{
+    position: relative;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 0.25rem;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    overflow: visible;
+    margin: 15px 0;
+    font-family: inherit;
+}
+
+.main_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.res {
+    display: none;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #444655;
+    padding: 50px 100px;
+    border: 10px solid #444655;
+}
+
+a{
+    letter-spacing: 1px;
+    font-weight: 700;
+    font-size: 23px;
+    color: #000;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+res > h1{
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: #007BFF;
+}
